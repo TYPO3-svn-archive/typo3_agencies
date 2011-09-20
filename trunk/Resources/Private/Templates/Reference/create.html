@@ -1,0 +1,138 @@
+<f:layout name="default" />
+<f:section name="content">
+	<div class="hgroup">
+		<h1>{reference.title}</h1>
+	</div>
+					
+	<div class="cl">
+		<div class="s-sidebar">
+			
+			<h4><f:translate key="projectFacts">Project Facts</f:translate></h4>
+			<div class="b-box b-stat">
+				<ul class="linear-list">
+					<li>
+						<p class="n-m"><strong><f:translate key="size">Company size</f:translate>:</strong></p>
+						<p class="n-m"><f:translate key="employees"> employees</f:translate></p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="pages">Number of pages</f:translate>:</strong></p>
+						<p class="n-m"><f:translate key="page{reference.pages}">appr. 1000</f:translate></p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="languages">Languages</f:translate>:</strong> {reference.languages}</p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="country">Country</f:translate>:</strong> {reference.country}</p>
+					</li>
+				</ul>
+				<p><f:link.external uri="{reference.link}" class="bu"><i class="ico i-arr-right-big"></i><f:translate key="openSite">Open Site</f:translate></f:link.external></p>
+			</div><!-- b-box -->
+			
+
+		</div><!-- s-sidebar -->
+		<div class="s-body">
+
+			<div class="b-project">
+
+				<p class="b-project-cat">
+					<f:translate key="industry">Industry</f:translate>: 
+					<f:if condition="{reference.industryOther}">
+						<f:then>
+							<f:link.action action="index" controller="Reference" arguments="{filter : null, filterString : 'industry#{reference.industryOther}'}">
+								{reference.industryOther}
+							</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="index" controller="Reference" arguments="{filter : null, filterString : 'industry#{reference.industry}'}">
+								<f:translate key="industry{reference.industry}">Industry</f:translate>
+							</f:link.action>
+						</f:else>
+					</f:if>
+					 <span class="sep">|</span> 
+					<f:translate key="category">Category</f:translate>: 
+					<f:if condition="{reference.categoryOther}">
+						<f:then>
+							<f:link.action action="index" controller="Reference"	arguments="{filterString : 'category#{reference.categoryOther}'}">
+								{reference.categoryOther}
+							</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="index" controller="Reference"	arguments="{filterString : 'category#{reference.category}'}">
+								<f:translate key="category{reference.category}">Category</f:translate>
+							</f:link.action>
+						</f:else>
+					</f:if>
+				</p>
+				
+				<div class="hr"><hr /> </div>
+				<p class="pic">
+					<f:if condition="{reference.screenshot}">
+						<img src="{uploadPath}/{reference.screenshot}" width="515" height="264" alt="pic" />
+					</f:if>
+				</p>
+				<f:if condition="{galleryImages}">
+					<p class="b-project-gallery"><a rel="lightbox[gallery]" href="{uploadPath}/{galleryImages.0}"><f:translate key="openGallery">Open screenshot gallery</f:translate></a>
+					<f:for each="{galleryImages}" as="image">
+						<a rel="lightbox[gallery]" href="{uploadPath}/{image}"><img rel="lightbox[gallery]" src="{uploadPath}/{image}" style="height:0px;"/></a>
+					</f:for>
+					</p>
+				</f:if>
+			</div><!-- b-project -->
+		
+			<div class="hgroup">
+				<h2><f:translate key="description">Description</f:translate></h2>
+			</div>
+			
+			<p><f:format.nl2br>{reference.description}</f:format.nl2br></p>
+			
+			<div class="b-form-inputs">
+				<f:if condition="{administrator} == {agency.administrator}">
+					<f:form method="post" controller="Reference" action="create" name="newReference" object="{reference}" style="display:inline;">
+						<f:form.hidden property="title" />
+						<f:form.hidden property="description" />
+						<f:form.hidden property="conclusion" />
+						<f:form.hidden property="link" />
+						<f:form.hidden property="pages" />
+						<f:form.hidden property="languages" />
+						<f:form.hidden property="category" />
+						<f:form.hidden property="categoryOther" />
+						<f:form.hidden property="tags" />
+						<f:form.hidden property="industry" />
+						<f:form.hidden property="industryOther" />
+						<f:form.hidden property="screenshot" />
+						<f:form.hidden property="screenshotGallery" />
+						<f:form.hidden property="casestudy" />
+						<f:form.hidden property="about" />
+						<f:form.hidden property="size" />
+						<f:form.hidden property="country" />
+						<f:form.hidden property="listed" />
+						<f:form.submit value="Publish project" class="bu bu-confirm"></f:form.submit>
+					</f:form>
+					<f:form method="post" controller="Reference" action="new" name="newReference" object="{reference}" style="display:inline;">
+						<f:form.hidden property="title" />
+						<f:form.hidden property="description" />
+						<f:form.hidden property="conclusion" />
+						<f:form.hidden property="link" />
+						<f:form.hidden property="pages" />
+						<f:form.hidden property="languages" />
+						<f:form.hidden property="category" />
+						<f:form.hidden property="categoryOther" />
+						<f:form.hidden property="tags" />
+						<f:form.hidden property="industry" />
+						<f:form.hidden property="industryOther" />
+						<f:form.hidden property="screenshot" />
+						<f:form.hidden property="screenshotGallery" />
+						<f:form.hidden property="casestudy" />
+						<f:form.hidden property="about" />
+						<f:form.hidden property="size" />
+						<f:form.hidden property="country" />
+						<f:form.hidden property="listed" />
+						<f:form.submit value="Back to edit" class="bu bu-confirm"></f:form.submit>
+					</f:form>
+					
+				</f:if>
+			</div>
+		</div><!-- s-body -->
+		
+	</div><!-- cl -->
+</f:section>
