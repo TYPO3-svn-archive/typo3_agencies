@@ -1,4 +1,5 @@
 {namespace agency=Tx_Typo3Agencies_ViewHelpers}
+{namespage p=Tx_T3orgTemplate_ViewHelpers}
 <f:layout name="default" />
 <f:section name="content">
 	<div class="cl">
@@ -104,48 +105,15 @@
 			</f:if>
 
 			<ul class="b-projects-list">
-				<f:for each="{references}" as="reference">
-					<f:if condition="{reference.deactivated == 0}">
-						<f:render partial="reference" arguments="{reference: reference, administrator : null, uploadPath : uploadPath, controller : 'Reference', redirectController : redirectController, redirect : redirect}" />
+				<f:widget.paginate objects="{references}" as="reference" configuration="{itemsPerPage : 5, insertAbove : 0, insertBelow: 1}">
+					<f:for each="{reference}" as="item">
+					<f:if condition="{item.deactivated == 0}">
+						<f:render partial="reference" arguments="{reference: item, administrator : null, uploadPath : uploadPath, controller : 'Reference', redirectController : redirectController, redirect : redirect}" />
 					</f:if>
-				</f:for>
+					</f:for>
+				</f:widget.paginate>
 			</ul><!-- b-projects-list -->
 			
-			
-			<f:if condition="{pager.displayItems}">
-				<ul class="b-pager">
-					<f:if condition="{pager.page} != 1">
-						<f:then>
-							<li><f:link.action controller="Reference" action="index" arguments="{reference : reference, page : 1}"><f:translate key="first">First</f:translate></f:link.action></li>
-							<li><f:link.action controller="Reference" action="index" arguments="{reference : reference, page : pager.previousPage}"><f:translate key="previous">Previous</f:translate></f:link.action></li>
-						</f:then>
-						<f:else>
-							<li class="cur"><f:translate key="first">First</f:translate></li>
-						</f:else>
-					</f:if>
-			</f:if>
-			<f:for each="{pager.displayItems}" as="pageItem">
-				<f:if condition="{pageItem.key} == {pager.page}">
-					<f:then>
-						<li class="cur">{pageItem.value}</li>
-					</f:then>
-					<f:else>
-						<li><f:link.action controller="Reference" action="index" arguments="{reference : reference, page : pageItem.key}">{pageItem.value}</f:link.action></li>
-					</f:else>
-				</f:if>
-			</f:for>
-			<f:if condition="{pager.displayItems}">
-				<f:if condition="{pager.page} != {pager.LastPage}">
-					<f:then>
-						<li><f:link.action controller="Reference" action="index" arguments="{reference : reference, page : pager.nextPage}"><f:translate key="next">Next</f:translate></f:link.action></li>
-						<li><f:link.action controller="Reference" action="index" arguments="{reference : reference, page : pager.lastPage}"><f:translate key="last">Last</f:translate></f:link.action></li>
-					</f:then>
-					<f:else>
-						<li class="cur"><f:translate key="last">Last</f:translate></li>
-					</f:else>
-				</f:if>
-				</ul>
-			</f:if>
 		</div><!-- s-body -->
 	</div><!-- cl -->
 </f:section>
