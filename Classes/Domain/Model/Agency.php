@@ -93,6 +93,13 @@ class Tx_Typo3Agencies_Domain_Model_Agency extends Tx_Extbase_DomainObject_Abstr
 	protected $approved = false;
 	
 	/**
+	 * Sent approval data or not?
+	 * 
+	 * @var boolean
+	 */
+	protected $sentApprovalData = FALSE;
+	
+	/**
 	 * Amount of case studies allowed to be shown
 	 * 
 	 * @var integer
@@ -311,6 +318,13 @@ class Tx_Typo3Agencies_Domain_Model_Agency extends Tx_Extbase_DomainObject_Abstr
 		$this->approved = $approved;
 	}
 
+	/**
+	 * @param $sentApprovalData boolean
+	 * @return void
+	 */
+	public function setSentApprovalData($sentApprovalData) {
+		$this->sentApprovalData = $sentApprovalData;
+	}
 
 	/**
 	 * Returns the about
@@ -658,6 +672,14 @@ class Tx_Typo3Agencies_Domain_Model_Agency extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function getApproved(){
 		return $this->approved;
+	}
+	
+	/**
+	 * Returns true if the agency has sent approval data
+	 * @return boolean
+	 */
+	public function getSentApprovalData(){
+		return $this->sentApprovalData;
 	}
 	
 	/**

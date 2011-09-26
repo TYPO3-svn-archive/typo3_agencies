@@ -78,6 +78,7 @@
 			<label index="tx_typo3agencies_domain_model_agency.approved">Approved by the Association</label>
 			<label index="tx_typo3agencies_domain_model_agency.casestudies">Amount of case studies allowed to publish</label>
 			<label index="tx_typo3agencies_domain_model_agency.code">Association Code</label>
+			<label index="tx_typo3agencies_domain_model_agency.sent_approval_data">Sent approval data to TYPO3 Association?</label>
 		</languageKey>
 	</data>
 </T3locallang>
