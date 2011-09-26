@@ -30,7 +30,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
  */
 class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Controller_BaseController {
-
+		
 	/**
 	 * Verify code action
 	 * 
@@ -40,7 +40,7 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 	 * @return void
 	 */
 	public function verifyCodeAction($agencyCode = NULL) {
-
+		
 		$memberDataUtility = $this->objectManager->get('Tx_Typo3Agencies_Utility_MemberData');
 		
 		if($agencyCode !== NULL) {
@@ -76,6 +76,21 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		$this->redirect('enterCode');
 	}
 
+	/**
+	 * Initialize verifyCode action
+	 * 
+	 */
+	public function initializeEnterCodeAction() {
+		$agency = $this->agencyRepository->findByAdministrator($this->administrator);
+		if((int) $agency->count() === 1) {
+			if($agency->getFirst()->getSentApprovalData() != true) {
+				$this->flashMessageContainer->add('We can see that you never submitted your approval data for your agency. <br /> Please finish this step', 'You are missing someting', t3lib_message_AbstractMessage::INFO);
+				$this->forward('enterApprovalData', 'Agency', $this->extensionName, array('newAgency' => $agency->getFirst()));
+			} else {
+				$this->flashMessageContainer->add('You have already submitted your agency. Only one agency pr. user', 'Your agency is already submitted', t3lib_message_AbstractMessage::INFO);
+			}	$this->forward('allReadySubmitted');
+		}
+	}
 
 	/**
 	 * Enter code, action
@@ -86,9 +101,18 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		
 	}
 
+	/**
+	 * User allready submitted his agency
+	 * 
+	 * @return void
+	 */
+	public function allReadySubmittedAction() {
+		
+	}
+	
 	 /**
 	 * Enter agency information, action
-	 * 
+	 *	
 	 * @param Tx_Typo3Agencies_Domain_Model_Agency $newAgency
 	 * 
 	 * @dontvalidate $newAgency
@@ -138,7 +162,6 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		$this->view->assign('developmentKnowledge', $this->request->getArgument('knowledge'));
 		$this->view->assign('substansialContribution', $this->request->getArgument('contributions'));
 		$this->view->assign('caseStudies', $this->request->getArgument('casestudies'));
-		$this->view->assign('onlineReferences', $this->request->getArgument('references'));
 		
 		$bodyContent = $this->view->render();
 		
@@ -148,6 +171,9 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		$mail->setSubject($subject);
 		$mail->setBody($bodyContent);
 		$mail->send();
+		
+		$newAgency->setSentApprovalData(true);
+		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
 		
 		$this->forward('confirmAgencySubmission');
 	}
