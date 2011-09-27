@@ -61,7 +61,7 @@
   <confirmation>
   	<ROOT>
       <TCEforms>
-      <sheetTitle>Step 3</sheetTitle>
+      <sheetTitle>Confirmation page</sheetTitle>
       </TCEforms>
       <type>array</type>
       <el>
@@ -77,5 +77,44 @@
       </el>
      </ROOT>
   </confirmation>
+  <allreadySubmitted>
+  	<ROOT>
+      <TCEforms>
+      <sheetTitle>Already submitted page</sheetTitle>
+      </TCEforms>
+      <type>array</type>
+      <el>
+      <settings.allreadySubmittedText>
+         <TCEforms>
+          <label>Text shown on the confirmation page</label>
+          <config>
+            <type>text</type>
+          </config>
+		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+         </TCEforms>
+      </settings.allreadySubmittedText>
+      </el>
+     </ROOT>
+  </allreadySubmitted>
+  <tooManyAgencies>
+  	<ROOT>
+      <TCEforms>
+      <sheetTitle>Too many agencies, page</sheetTitle>
+      </TCEforms>
+      <type>array</type>
+      <el>
+      <settings.tooManyAgenciesText>
+         <TCEforms>
+          <label>Text shown on the confirmation page</label>
+          <config>
+            <type>text</type>
+          </config>
+		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+         </TCEforms>
+      </settings.tooManyAgenciesText>
+      </el>
+     </ROOT>
+  </tooManyAgencies>
+  
   </sheets>
 </T3DataStructure>

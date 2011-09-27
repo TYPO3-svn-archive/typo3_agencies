@@ -84,14 +84,25 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		$agency = $this->agencyRepository->findByAdministrator($this->administrator);
 		if((int) $agency->count() === 1) {
 			if($agency->getFirst()->getSentApprovalData() != true) {
-				$this->flashMessageContainer->add('We can see that you never submitted your approval data for your agency. <br /> Please finish this step', 'You are missing someting', t3lib_message_AbstractMessage::INFO);
-				$this->forward('enterApprovalData', 'Agency', $this->extensionName, array('newAgency' => $agency->getFirst()));
+				$this->flashMessageContainer->add('We can see that you never submitted your agency data or approval data for your agency. <br /> Please finish this step', 'You are missing someting', t3lib_message_AbstractMessage::INFO);
+				//$this->forward('enterApprovalData', 'Agency', $this->extensionName, array('newAgency' => $agency->getFirst()));
+				$this->forward('enterInformation', 'Agency', $this->extensionName, array('newAgency' => $agency->getFirst()));
 			} else {
 				$this->flashMessageContainer->add('You have already submitted your agency. Only one agency pr. user', 'Your agency is already submitted', t3lib_message_AbstractMessage::INFO);
 			}	$this->forward('allReadySubmitted');
-		}
+		} /*elseif($agency->count() >= 1) {
+			$this->forward('tooManyAgencies');
+		}*/
 	}
 
+	/**
+	 * Shown if one user got more than one agencies
+	 * 
+	 * @return void
+	 */
+	public function tooManyAgenciesAction() {
+	}
+	
 	/**
 	 * Enter code, action
 	 * 
@@ -143,8 +154,9 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 	 * Enter approval data
 	 * 
 	 * @param Tx_Typo3Agencies_Domain_Model_Agency $newAgency
+	 * @dontvalidate $newAgency
 	 */
-	public function enterApprovalDataAction(Tx_Typo3Agencies_Domain_Model_Agency $newAgency) {
+	public function enterApprovalDataAction(Tx_Typo3Agencies_Domain_Model_Agency $newAgency = NULL) {
 		if ($newAgency->getAdministrator() == $this->administrator) {
 			$this->view->assign('newAgency', $newAgency);
 		}	
@@ -175,7 +187,7 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		$newAgency->setSentApprovalData(true);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
 		
-		$this->forward('confirmAgencySubmission');
+		$this->redirect('confirmAgencySubmission');
 	}
 	
 	/**
