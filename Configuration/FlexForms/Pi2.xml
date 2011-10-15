@@ -1,120 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <T3DataStructure>
-  <sheets>
-  <stepOne>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Step 1</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.stepOneText>
-         <TCEforms>
-          <label>Text shown above step 1 form</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.stepOneText>
-      </el>
-     </ROOT>
-  </stepOne>
-  <stepTwo>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Step 2</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.stepTwoText>
-         <TCEforms>
-          <label>Text shown above step 2 form</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.stepTwoText>
-      </el>
-     </ROOT>
-  </stepTwo>
-  <stepThree>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Step 3</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.stepThreeText>
-         <TCEforms>
-          <label>Text shown above step 3 form</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.stepThreeText>
-      </el>
-     </ROOT>
-  </stepThree>
-  <confirmation>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Confirmation page</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.confirmationText>
-         <TCEforms>
-          <label>Text shown on the confirmation page</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.confirmationText>
-      </el>
-     </ROOT>
-  </confirmation>
-  <allreadySubmitted>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Already submitted page</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.allreadySubmittedText>
-         <TCEforms>
-          <label>Text shown on the confirmation page</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.allreadySubmittedText>
-      </el>
-     </ROOT>
-  </allreadySubmitted>
-  <tooManyAgencies>
-  	<ROOT>
-      <TCEforms>
-      <sheetTitle>Too many agencies, page</sheetTitle>
-      </TCEforms>
-      <type>array</type>
-      <el>
-      <settings.tooManyAgenciesText>
-         <TCEforms>
-          <label>Text shown on the confirmation page</label>
-          <config>
-            <type>text</type>
-          </config>
-		  <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
-         </TCEforms>
-      </settings.tooManyAgenciesText>
-      </el>
-     </ROOT>
-  </tooManyAgencies>
-  
-  </sheets>
+	<sheets>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>General settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.contactAddress>
+						<TCEforms>
+							<label>E-mail receiving submitted data</label>
+							<config>
+								<type>input</type>
+							</config>
+						</TCEforms>
+					</settings.contactAddress>
+				</el>
+			</ROOT>
+		</general>
+		<stepOne>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Step 1</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.stepOneText>
+						<TCEforms>
+							<label>Text shown above step 1 form</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.stepOneText>
+				</el>
+			</ROOT>
+		</stepOne>
+		<stepTwo>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Step 2</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.stepTwoText>
+						<TCEforms>
+							<label>Text shown above step 2 form</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.stepTwoText>
+				</el>
+			</ROOT>
+		</stepTwo>
+		<stepThree>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Step 3</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.stepThreeText>
+						<TCEforms>
+							<label>Text shown above step 3 form</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.stepThreeText>
+				</el>
+			</ROOT>
+		</stepThree>
+		<confirmation>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Confirmation page</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.confirmationText>
+						<TCEforms>
+							<label>Text shown on the confirmation page</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.confirmationText>
+				</el>
+			</ROOT>
+		</confirmation>
+		<allreadySubmitted>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Already submitted page</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.allreadySubmittedText>
+						<TCEforms>
+							<label>Text shown on the confirmation page</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.allreadySubmittedText>
+				</el>
+			</ROOT>
+		</allreadySubmitted>
+		<tooManyAgencies>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Too many agencies, page</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.tooManyAgenciesText>
+						<TCEforms>
+							<label>Text shown on the confirmation page</label>
+							<config>
+								<type>text</type>
+							</config>
+							<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.tooManyAgenciesText>
+				</el>
+			</ROOT>
+		</tooManyAgencies>
+
+	</sheets>
 </T3DataStructure>

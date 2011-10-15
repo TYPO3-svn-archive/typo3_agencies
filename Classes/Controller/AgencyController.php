@@ -178,7 +178,7 @@ class Tx_Typo3Agencies_Controller_AgencyController extends Tx_Typo3Agencies_Cont
 		
 		$mail = t3lib_div::makeInstance('t3lib_mail_Message');
 		$mail->setFrom(array($newAgency->getEmail() => $newAgency->getName()));
-		$mail->setTo(array('agencylisting@typo3.org' => 'Agency Listing'));
+		$mail->setTo(array($this->settings['contactAddress'] => 'Consultancy Listing'));
 		$mail->setSubject($subject);
 		$mail->setBody($bodyContent);
 		$mail->send();
