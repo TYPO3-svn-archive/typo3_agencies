@@ -188,13 +188,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 			$this->view->assign('companySizes', Tx_Typo3Agencies_Controller_BaseController::getCompanySizes($this, $this->extensionName, false));
 			$this->view->assign('pagesList', Tx_Typo3Agencies_Controller_BaseController::getPages($this, $this->extensionName, false));
 			$this->view->assign('languagesList', Tx_Typo3Agencies_Controller_BaseController::getLanguages($this, $this->extensionName, false));
-			$countries = $this->countryRepository->findAll();
-			$availableCountries = Array();
-			foreach($countries as $country){
-				$availableCountries[$country->getCnShortEn()] = $country->getCnShortEn();
-			}
-
-			$this->view->assign('countries', $availableCountries);
+			$this->addCountries();
 			$this->view->assign('administrator', $this->administrator);
 			$this->view->assign('galleryImages', t3lib_div::trimExplode(',',$newReference->getScreenshotGallery(),1));
 			$this->view->assign('referenceMaxReached', $this->validateMaximumReferences());
@@ -247,10 +241,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 		//4 = Platinum member
 		$maxReached = false;
 
-		if($count > $this->agency->getCasestudies()){
-			$maxReached = true;
-			$this->flashMessages->add($this->localization->translate('referenceMoreThanMax', $this->extensionName),'',t3lib_message_AbstractMessage::WARNING);
-		} else if($count == $this->agency->getCasestudies()){
+		if($count >= $this->agency->getCasestudies()){
 			$maxReached = true;
 			$this->flashMessages->add($this->localization->translate('referenceMaxReached', $this->extensionName),'',t3lib_message_AbstractMessage::INFO);
 		}
@@ -273,7 +264,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 		if($this->agency){
 			$count = $this->referenceRepository->countByAgency($this->agency);
 			$referenceMaxReached = $this->agency->getCasestudies();
-			if($count < $referenceMaxReached){
+			//if($count < $referenceMaxReached){
 				if($this->handleFiles($newReference)){
 					$newReference->setAgency($this->agency);
 					if($preview == 'Preview'){
@@ -284,6 +275,9 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 						$this->view->assign('galleryImages', t3lib_div::trimExplode(',',$newReference->getScreenshotGallery(),1));
 					} else {
 						$newReference->setSorting($count);
+						if($count >= $referenceMaxReached){
+							$newReference->setDeactivated(true);
+						}
 						$this->referenceRepository->add($newReference);
 						$this->flashMessages->add(str_replace('%NAME%', $newReference->getTitle(), $this->localization->translate('referenceCreated',$this->extensionName)),'',t3lib_message_AbstractMessage::OK);
 						$GLOBALS['TSFE']->clearPageCacheContent_pidList($this->settings['clearCachePids']);
@@ -297,10 +291,10 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 					$GLOBALS['TSFE']->clearPageCacheContent_pidList($this->settings['clearCachePids']);
 					$this->redirect('create','Reference');
 				}
-			} else {
-				$this->flashMessages->add($this->localization->translate('notAllowed',$this->extensionName),'',t3lib_message_AbstractMessage::ERROR);
-				$this->flashMessages->add($this->localization->translate('referenceMaxReached',$this->extensionName),'',t3lib_message_AbstractMessage::WARNING);
-			}
+			//} else {
+			//	$this->flashMessages->add($this->localization->translate('notAllowed',$this->extensionName),'',t3lib_message_AbstractMessage::ERROR);
+			//	$this->flashMessages->add($this->localization->translate('referenceMaxReached',$this->extensionName),'',t3lib_message_AbstractMessage::WARNING);
+			//}
 		}
 		if($preview != 'Preview'){
 			$this->redirect('index');
@@ -339,13 +333,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 			$this->view->assign('companySizes', Tx_Typo3Agencies_Controller_BaseController::getCompanySizes($this, $this->extensionName, false));
 			$this->view->assign('pagesList', Tx_Typo3Agencies_Controller_BaseController::getPages($this, $this->extensionName, false));
 			$this->view->assign('languagesList', Tx_Typo3Agencies_Controller_BaseController::getLanguages($this, $this->extensionName, false));
-			$countries = $this->countryRepository->findAll();
-			$availableCountries = Array();
-			foreach($countries as $country){
-				$availableCountries[$country->getCnShortEn()] = $country->getCnShortEn();
-			}
-
-			$this->view->assign('countries', $availableCountries);
+			$this->addCountries();
 			$this->view->assign('administrator', $this->administrator);
 			$this->view->assign('uploadPath', $this->settings['uploadPath']);
 			$this->view->assign('galleryImages', t3lib_div::trimExplode(',',$reference->getScreenshotGallery(),1));
@@ -571,7 +559,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 					// must be an image for the gallery
 					foreach ($error as $error_key => $error_error){
 						if($error_error == 0){
-							if( strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key][$error_key],'image/png') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key][$error_key],'image/jpg') === 0){
+							if( strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key][$error_key],'image/png') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key][$error_key],'image/jpg') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key][$error_key],'image/jpeg') === 0){
 								if($_FILES['tx_typo3agencies_pi1']['size'][$formName][$key][$error_key] < 500000){
 									$theFile = $_FILES['tx_typo3agencies_pi1']['tmp_name'][$formName][$key][$error_key];
 									$theDestFile = $fileFunc->getUniqueName($fileFunc->cleanFileName($_FILES['tx_typo3agencies_pi1']['name'][$formName][$key][$error_key]), $this->settings['uploadPath']);
@@ -590,7 +578,7 @@ class Tx_Typo3Agencies_Controller_ReferenceController extends Tx_Typo3Agencies_C
 				} else {
 					if($error == 0){
 						if($key == 'screenshot'){
-							if( strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key],'image/png') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key],'image/jpg') === 0){
+							if( strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key],'image/png') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key],'image/jpg') === 0 || strpos($_FILES['tx_typo3agencies_pi1']['type'][$formName][$key],'image/jpeg') === 0){
 								if($_FILES['tx_typo3agencies_pi1']['size'][$formName][$key] < 500000){
 									$theFile = $_FILES['tx_typo3agencies_pi1']['tmp_name'][$formName][$key];
 									$theDestFile = $fileFunc->getUniqueName($fileFunc->cleanFileName($_FILES['tx_typo3agencies_pi1']['name'][$formName][$key]), $this->settings['uploadPath']);
