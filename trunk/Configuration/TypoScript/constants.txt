@@ -1,0 +1,51 @@
+plugin.tx_typo3agencies {
+	view {
+		# cat=plugin.tx_typo3agencies/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:typo3_agencies/Resources/Private/Templates/
+		
+		# cat=plugin.tx_typo3agencies/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:typo3_agencies/Resources/Private/Partials/
+		
+		# cat=plugin.tx_typo3agencies/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:typo3_agencies/Resources/Private/Layouts/
+	}
+	
+	persistence {
+		# cat=plugin.tx_typo3agencies//a; type=string; label=Default storage PIDs
+		storagePid =
+	}
+	
+	settings {
+		# cat=plugin.tx_typo3agencies//a; type=string; label=Path to store images in (same as in TCA)
+		uploadPath = uploads/tx_typo3_agencies/pics
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=Max references a bronze member is allowed to create
+		bronzeMax = 4
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=Max references a silver member is allowed to create
+		silverMax = 4
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=Max references a gold member is allowed to create
+		goldMax = 4
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=Max references a platinum member is allowed to create
+		platinumMax = 2
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=Max items to show per page
+		pageBrowser.itemsPerPage = 10
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=PageId where the agencies are to be displayed
+		agenciesPid = 128
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=PageId where the references are to be displayed
+		referencesPid = 435
+		
+		# cat=plugin.tx_typo3agencies//a; type=string; label=Google Maps key
+		googleMapsKey = ABQIAAAAI8h9wp9zHObSISxQvh-vPxSo8EnW8AKoLXqLvL-qXcC2LypMvBS6BRiIkAGbVo_izK4SeLFoCzHpxg
+		
+		# cat=plugin.tx_typo3agencies//a; type=int+; label=The amount of recently added case studies to show
+		recentCaseStudies = 30;
+		
+		pdfTypeNum = 123
+	}
+}

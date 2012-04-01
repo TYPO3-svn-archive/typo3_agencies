@@ -1,0 +1,145 @@
+<f:layout name="default" />
+<f:section name="content">
+	<div class="hgroup">
+		<h1>{reference.title}</h1>
+	</div>
+					
+	<div class="cl">
+		<div class="s-sidebar">
+			
+			<h4>Project Facts</h4>
+			<div class="b-box b-stat">
+				<ul class="linear-list">
+					<li>
+						<p class="n-m"><strong><f:translate key="size">Company size</f:translate>:</strong></p>
+						<p class="n-m"> <f:translate key="size{reference.size}"></f:translate> <f:translate key="employees"> employees</f:translate></p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="pages">Number of pages</f:translate>:</strong></p>
+						<p class="n-m"><f:translate key="page{reference.pages}"> appr. 1000</f:translate></p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="languages">Languages</f:translate>:</strong> {reference.languages}</p>
+					</li>
+					<li>
+						<p class="n-m"><strong><f:translate key="country">Country</f:translate>:</strong> {reference.country}</p>
+					</li>
+				</ul>
+				<p><f:link.external uri="{reference.link}" class="bu"><i class="ico i-arr-right-big"></i>Open Site</f:link.external></p>
+			</div><!-- b-box -->
+			
+			<!-- h4>Download Case Study</h4>
+			<div class="b-box">
+				<p class="n-m"><img src="{f:uri.resource(path:'Media/Images/folders.png')}" alt="" /></p>
+				<p>Download this case study as PDF Dokument</p>
+				<p>
+					<f:link.page pageType="{settings.pdfTypeNum}" pageUid="{settings.referencesPid}" additionalParams="{tx_typo3agencies_pi1:{action:'pdf',controller:'Reference',reference:reference}}" class="bu">
+						<i class="ico i-arr-down"></i><f:translate key="download">Download</f:translate>
+					</f:link.page>
+				</p>
+			</div><!-- b-box -->
+			
+			
+
+		</div><!-- s-sidebar -->
+		<div class="s-body">
+
+			<div class="b-project">
+				<p class="b-project-toolbar">
+					<f:render partial="referenceActions" arguments="{reference: reference, administrator : administrator, controller : controller, redirectController : redirectController, redirect : redirect}" />
+				</p>
+				<p class="b-project-cat">
+					<f:translate key="industry">Industry</f:translate>: 
+					<f:if condition="{reference.industryOther}">
+						<f:then>
+							<f:link.action action="index" controller="Reference" arguments="{filter : null, filterString : 'industry#{reference.industryOther}'}">
+								{reference.industryOther}
+							</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="index" controller="Reference" arguments="{filter : null, filterString : 'industry#{reference.industry}'}">
+								<f:translate key="industry{reference.industry}">Industry</f:translate>
+							</f:link.action>
+						</f:else>
+					</f:if>
+					 <span class="sep">|</span> 
+					<f:translate key="category">Category</f:translate>: 
+					<f:if condition="{reference.categoryOther}">
+						<f:then>
+							<f:link.action action="index" controller="Reference"	arguments="{filterString : 'category#{reference.categoryOther}'}">
+								{reference.categoryOther}
+							</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="index" controller="Reference"	arguments="{filterString : 'category#{reference.category}'}">
+								<f:translate key="category{reference.category}">Category</f:translate>
+							</f:link.action>
+						</f:else>
+					</f:if>
+				</p>
+				
+				<div class="hr"><hr /> </div>
+				<p class="pic">
+					<f:if condition="{reference.screenshot}">
+						<f:image src="{uploadPath}/{reference.screenshot}" width="515c-100" height="264c-100" alt="" />
+					</f:if>
+				</p>
+				<f:if condition="{galleryImages}">
+					<p class="b-project-gallery"><a rel="lightbox[gallery]" href="{uploadPath}/{galleryImages.0}">Open screenshot gallery</a>
+					<f:for each="{galleryImages}" as="image">
+						<a rel="lightbox[gallery]" href="{uploadPath}/{image}"><img rel="lightbox[gallery]" src="{uploadPath}/{image}" style="height:0px;"/></a>
+					</f:for>
+					</p>
+				</f:if>
+			</div><!-- b-project -->
+		
+			<div class="hgroup">
+				<h2>Description</h2>
+			</div>
+			
+			<p><f:format.nl2br>{reference.description}</f:format.nl2br></p>
+			
+			<h2>
+				<f:if condition="{reference.agency.name}">
+					<f:then>
+						{reference.agency.name}
+					</f:then>
+					<f:else>
+						{reference.agency.firstName} {reference.agency.lastName}
+					</f:else>
+				</f:if>
+			</h2>
+			<div class="b-project">
+				<p class="b-project-toolbar">
+					<f:if condition="{administrator}">
+						<f:if condition="{administrator} == {reference.agency.administrator}">
+							<f:link.page pageUid="{settings.agenciesPid}" additionalParams="{tx_typo3agencies_pi1:{action:'edit',controller:'Agency',agency:reference.agency}}" noCacheHash="true">
+								<f:translate key="editProfile">Edit profile</f:translate>
+							</f:link.page>
+						</f:if>
+					</f:if>
+				</p>
+				<p class="b-project-link">
+					<f:link.external uri="{reference.agency.link}" target="_blank"><strong>{reference.agency.link}</strong></f:link.external>
+				</p>
+				<div class="hr"><hr /> </div>
+				
+				<div class="b-agency">
+					<div class="agency-img">
+						<f:if condition="{reference.agency.logo}">
+							<f:image src="{uploadPath}/{reference.agency.logo}" maxWidth="178" alt="logo"/>
+						</f:if>
+						<f:image src="{f:uri.resource(path:'Media/Images/membership/{reference.agency.member}-widen.jpg')}" alt="" />
+					</div><!-- .agency-img -->
+					<div class="agency-desc">
+						<p><f:format.nl2br>{reference.agency.about}</f:format.nl2br></p>
+						<p><f:link.page pageUid="{settings.agenciesPid}" additionalParams="{tx_typo3agencies_pi1:{action:'show',controller:'Agency',agency:reference.agency}}">More information</f:link.page></p>
+					</div><!-- .agency-desc -->
+				</div><!-- .b-agency -->
+
+			</div><!-- b-project -->
+			
+		</div><!-- s-body -->
+		
+	</div><!-- cl -->
+</f:section>
